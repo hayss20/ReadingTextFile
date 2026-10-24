@@ -17,8 +17,7 @@ namespace CreatingTextFile
         public FrmRegistration()
         {
             InitializeComponent();
-            File = new FrmFileName();
-            File.ShowDialog();
+            
         }
 
         private void btnRegister_Click(object sender, EventArgs e)
@@ -39,7 +38,7 @@ namespace CreatingTextFile
                 getfname = txtFirstName.Text;
                 getlname = txtLastName.Text;
                 getmi = txtMiddleName.Text;
-                getage = int.Parse(txtAge.Text);    
+                getage = int.Parse(txtAge.Text);
                 birthday = dtpBirthday.Text;
                 contactno = txtContactNo.Text;
                 program = cbProgram.Text;
@@ -78,9 +77,10 @@ namespace CreatingTextFile
                 MessageBox.Show(ex.Message);
                 return;
             }
-
+            File = new FrmFileName();
+            File.ShowDialog();
             string docPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, FrmFileName.SetFileName)))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(docPath, FrmFileName.SetFileName )))
             {
                 outputFile.WriteLine("Student no: " + getstuno);
                 outputFile.WriteLine("Full name: " + getfname + " " + getmi + " " + getlname);
@@ -90,7 +90,12 @@ namespace CreatingTextFile
                 outputFile.WriteLine("Birthday: " + birthday);
                 outputFile.WriteLine("Contact no: " + contactno);
             }
-            MessageBox.Show("Registration successful! File saved in My Documents folder.");
+            MessageBox.Show("Registration successful! File saved in My Documents folder.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void btnRecords_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

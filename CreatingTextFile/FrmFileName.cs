@@ -17,15 +17,19 @@ namespace CreatingTextFile
         }
         private void btnOkay_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtFileName.Text))
+            string name = txtFileName.Text.Trim();
+
+            if (name.Length == 0 || name.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0)
             {
-                MessageBox.Show("Please enter a file name.");
+                MessageBox.Show("Please enter a valid file name.", "frmFileName",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtFileName.Focus();
                 return;
             }
-            SetFileName = txtFileName.Text;
-            this.DialogResult = DialogResult.OK;
+
+            SetFileName = name + ".txt";
+
             this.Close();
-            Close();
         }
     }
 }
